@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  chat-frontend:
+    build:
+      context: .
+      dockerfile: front.Dockerfile
+    ports:
+      - "8080:80"
+  api:
+    build: .
+    container_name: FastChat-api
+    ports:
+      - "${APP_PORT:-10000}:10000"
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT}
+      ENABLE_RELOAD_UVICORN: ${ENABLE_RELOAD_UVICORN}
+      POSTGRES_URL: ${POSTGRES_URL}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
+      ROOT_PATH: ${ROOT_PATH}
+      REDIS_IP: ${REDIS_IP}
+      REDIS_PORT: ${REDIS_PORT}
+    volumes:
+      - ".:/srv"
+    networks:
+      - internal
+    depends_on:
+      - "redis"
+    hostname: api
+  redis:
+    image: redis:7.0.2
+    container_name: FastChat-redis
+    ports:
+      - 6379:6379
+    networks:
+      - internal
+networks:
+  internal:
+    external: false
