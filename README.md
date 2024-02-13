@@ -64,13 +64,13 @@ docker-compose up
 
 Open your web browser and navigate to http://localhost:8080.
 
-# FastChat App
+**FastChat App**
 ![1](images/1.PNG)
 
-# User 1 joins room 
+**User 1 joins room** 
 ![2](images/2.PNG)
 
-# User 2 joins room 
+**User 2 joins room** 
 ![3](images/3.PNG)
 
 
