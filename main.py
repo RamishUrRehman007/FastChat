@@ -1,8 +1,10 @@
 import logging
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Depends
+# from websocket.socketManager_old import WebSocketManager
 from websocket.socketManager import WebSocketManager
+from websocket.redisManager import RedisPubSubManager
 import json
 import argparse
 
@@ -21,7 +23,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-socket_manager = WebSocketManager()
+# Create an instance of RedisPubSubManager
+pubsub_client = RedisPubSubManager()
+# Pass the instance directly to WebSocketManager
+socket_manager = WebSocketManager(pubsub_client=pubsub_client)
 
 
 @app.websocket("/api/v1/ws/{room_id}/{user_id}")

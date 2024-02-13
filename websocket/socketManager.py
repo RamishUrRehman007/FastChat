@@ -1,39 +1,9 @@
 import asyncio
-import redis.asyncio as aioredis
-
-
-class RedisPubSubManager:
-    def __init__(self, host='redis', port=6379):
-        self.redis_host = host
-        self.redis_port = port
-        self.pubsub = None
-
-    async def _get_redis_connection(self) -> aioredis.Redis:
-        return aioredis.Redis(
-            host=self.redis_host,
-            port=self.redis_port,
-            auto_close_connection_pool=False
-        )
-
-    async def connect(self) -> None:
-        self.redis_connection = await self._get_redis_connection()
-        self.pubsub = self.redis_connection.pubsub()
-
-    async def _publish(self, room_id: str, message: str) -> None:
-        await self.redis_connection.publish(room_id, message)
-
-    async def subscribe(self, room_id: str) -> aioredis.Redis:
-        await self.pubsub.subscribe(room_id)
-        return self.pubsub
-
-    async def unsubscribe(self, room_id: str) -> None:
-        await self.pubsub.unsubscribe(room_id)
-
-
+from .redisManager import IRedisConnectionManager
 class WebSocketManager:
-    def __init__(self):
-        self.rooms: dict = {}
-        self.pubsub_client = RedisPubSubManager()
+    def __init__(self, pubsub_client: IRedisConnectionManager):
+        self.rooms = {}
+        self.pubsub_client = pubsub_client
 
     async def add_user_to_room(self, room_id: str, websocket) -> None:
         await websocket.accept()
@@ -48,7 +18,7 @@ class WebSocketManager:
             asyncio.create_task(self._pubsub_data_reader(pubsub_subscriber))
 
     async def broadcast_to_room(self, room_id: str, message: str) -> None:
-        await self.pubsub_client._publish(room_id, message)
+        await self.pubsub_client.publish(room_id, message)
 
     async def remove_user_from_room(self, room_id: str, websocket) -> None:
         self.rooms[room_id].remove(websocket)
