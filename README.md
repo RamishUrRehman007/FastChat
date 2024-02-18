@@ -1,4 +1,4 @@
-# FastChat
+# FastChat 💬
 
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![Redis](https://img.shields.io/badge/Redis-D9281A?style=for-the-badge&logo=redis)
@@ -6,30 +6,30 @@
 
 FastChat is a real-time chat application that leverages the power of FastAPI, Redis, and Docker to deliver seamless one-to-one or group conversations. Designed with an event-driven architecture using Redis Pub/Sub mechanism and WebSockets, FastChat ensures fast, efficient, and scalable communication for your projects. The use of Docker for containerization simplifies deployment and development workflows, making FastChat an ideal choice for modern web applications.
 
-## Architecture
+## 🏛 Architecture
 
 FastChat is built on an event-driven architecture, utilizing Redis Pub/Sub to handle real-time messaging efficiently. This architecture facilitates scalable and decoupled systems, allowing for high performance and resilience. The application is containerized with Docker, ensuring consistent environments and streamline deployment.
 
-## Technologies
+## 💻 Technologies
 
 - **FastAPI**: For building RESTful APIs and managing WebSocket connections.
 - **Redis**: Used as a message broker for the Pub/Sub mechanism.
 - **Docker**: For containerizing the application and its dependencies.
 
-## Getting Started
+## 🚀 Getting Started
 
 To get FastChat running on your local machine, follow these steps:
 
-## Prerequisites
+## ✅ Prerequisites
 
 Before you begin, ensure you have installed:
 
 - [Docker](https://www.docker.com/products/docker-desktop)
 - [Git](https://git-scm.com/downloads)
 
-## Setup and Installation
+## 🔧 Setup and Installation
 
-### Step 1: Clone the Repository
+### ➡️ Step 1: Clone the Repository
 
 To clone the repository securely, you need to use your GitHub username and a personal access token. Follow these steps:
 
@@ -49,7 +49,7 @@ To clone the repository securely, you need to use your GitHub username and a per
     git clone https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/RamishUrRehman007/FastChat.git
     ```
 
-### Step 2: Running the Application
+### ▶️ Step 2: Running the Application
 
 Navigate to the project directory and use Docker Compose to start the application:
 
@@ -60,7 +60,7 @@ docker-compose up
 
 ![Docker](images/docker_run.PNG)
 
-## Accessing the Application
+## 🌐 Accessing the Application
 
 Open your web browser and navigate to http://localhost:8080.
 
@@ -75,5 +75,5 @@ Open your web browser and navigate to http://localhost:8080.
 
 
 
-## Stopping the Application
+## ⏹ Stopping the Application
 To stop the application, use `Ctrl+C` in the terminal where Docker Compose is running, or run `docker-compose down` in a separate terminal.
